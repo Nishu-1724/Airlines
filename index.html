@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indian Airways - Flight Search</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="assets/css/style.css" rel="stylesheet">
+    <!-- Flatpickr CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="bg-white shadow-sm">
+        <div class="container">
+            <div class="row align-items-center py-3">
+                <div class="col-md-6">
+                    <h1 class="logo-text">Indian <span>Airways</span></h1>
+                </div>
+                <div class="col-md-6 text-end">
+                    <a href="login.php" class="btn btn-outline-primary me-2">Login</a>
+                    <a href="register.php" class="btn btn-primary">Register</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Flight Search</h1>
+        
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <div class="card">
+                    <div class="card-body">
+                        <form action="search_results.php" method="GET">
+                            <!-- Trip Type -->
+                            <div class="mb-3">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="trip_type" id="oneWay" value="one_way" checked>
+                                    <label class="form-check-label" for="oneWay">One Way</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="trip_type" id="roundTrip" value="round_trip">
+                                    <label class="form-check-label" for="roundTrip">Round Trip</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="trip_type" id="multiCity" value="multi_city">
+                                    <label class="form-check-label" for="multiCity">Multi City</label>
+                                </div>
+                            </div>
+
+                            <!-- From and To -->
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="from" class="form-label">From</label>
+                                    <input type="text" class="form-control" id="from" name="from" placeholder="Enter city name" value="Delhi" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="to" class="form-label">To</label>
+                                    <input type="text" class="form-control" id="to" name="to" placeholder="Enter city name" value="Mumbai" required>
+                                </div>
+                            </div>
+
+                            <!-- Dates -->
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="depart_date" class="form-label">Depart</label>
+                                    <input type="text" class="form-control datepicker" id="depart_date" name="depart_date" value="2025-05-20" required>
+                                </div>
+                                <div class="col-md-6 mb-3 return-date" style="display: none;">
+                                    <label for="return_date" class="form-label">Return</label>
+                                    <input type="text" class="form-control datepicker" id="return_date" name="return_date">
+                                </div>
+                            </div>
+
+                            <!-- Passengers and Class -->
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="passengers" class="form-label">Passenger(s)</label>
+                                    <select class="form-select" id="passengers" name="passengers" required>
+                                        <option value="1">1 Adult</option>
+                                        <option value="2">2 Adults</option>
+                                        <option value="3">3 Adults</option>
+                                        <option value="4">4 Adults</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="class" class="form-label">Class</label>
+                                    <select class="form-select" id="class" name="class" required>
+                                        <option value="Economy">Economy</option>
+                                        <option value="Business">Business</option>
+                                        <option value="First Class">First Class</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Concession Type -->
+                            <div class="mb-3">
+                                <label for="concession" class="form-label">Concession Type</label>
+                                <select class="form-select" id="concession" name="concession" required>
+                                    <option value="None">None</option>
+                                    <option value="Senior">Senior</option>
+                                    <option value="Child">Child</option>
+                                    <option value="Student">Student</option>
+                                    <option value="Military">Military</option>
+                                </select>
+                            </div>
+
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary btn-lg me-2">Search Flights</button>
+                                <a href="available_flights.php" class="btn btn-secondary btn-lg">Show Available Flights</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Flatpickr JS -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <!-- Custom JS -->
+    <script>
+        $(document).ready(function() {
+            // Initialize Flatpickr for date pickers
+            flatpickr(".datepicker", {
+                dateFormat: "Y-m-d",
+                minDate: "today",
+                disableMobile: "true"
+            });
+
+            // Show/hide return date based on trip type
+            $('input[name="trip_type"]').change(function() {
+                if ($(this).val() === 'round_trip') {
+                    $('.return-date').show();
+                    $('#return_date').prop('required', true);
+                } else {
+                    $('.return-date').hide();
+                    $('#return_date').prop('required', false);
+                }
+            });
+
+            // Prevent selecting same city for from and to
+            $('#from, #to').change(function() {
+                const fromVal = $('#from').val().toLowerCase();
+                const toVal = $('#to').val().toLowerCase();
+                
+                if (fromVal && toVal && fromVal === toVal) {
+                    alert('Please select different cities for departure and arrival');
+                    $(this).val('');
+                }
+            });
+
+            // Check flight availability when date is selected
+            $('.datepicker').change(function() {
+                const date = $(this).val();
+                const fromCity = $('#from').val();
+                const toCity = $('#to').val();
+                
+                if (date && fromCity && toCity) {
+                    $.getJSON('check_availability.php', {
+                        date: date,
+                        from: fromCity,
+                        to: toCity
+                    }, function(data) {
+                        if (data.success) {
+                            if (data.available) {
+                                alert('Flights are available for the selected date!');
+                            } else {
+                                alert('No flights available for the selected date. Please choose another date.');
+                            }
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html> 
